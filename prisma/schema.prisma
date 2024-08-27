@@ -1,0 +1,70 @@
+// This is your Prisma schema file
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Flight {
+  id             Int      @id @default(autoincrement())
+  airline        String
+  departureCity  String
+  arrivalCity    String
+  departureDate  DateTime
+  departureTime  String
+  arrivalTime    String
+  duration       String
+  price          Float
+  availableSeats Int
+}
+
+model Hotel {
+  id        Int            @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  country   String
+  latitude  Float
+  longitude Float
+  amenities String[]
+  rooms     RoomDetail[]
+  reviews   ReviewDetail[]
+}
+
+model RoomDetail {
+  id            Int     @id @default(autoincrement())
+  type          String
+  pricePerNight Float
+  currency      String
+  availability  Boolean
+  hotelId       Int
+  hotel         Hotel   @relation(fields: [hotelId], references: [id])
+}
+
+model ReviewDetail {
+  id      Int    @id @default(autoincrement())
+  user    String
+  rating  Float
+  comment String
+  hotelId Int
+  hotel   Hotel  @relation(fields: [hotelId], references: [id])
+}
+
+model Activity {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  duration    String
+  rating      Float
+  reviews     Int
+  price       Float
+  image       String
+}
