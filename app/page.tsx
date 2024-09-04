@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import Product from "@/components/Product";
 import SortHotel from "@/components/SortHotel";
 import { useTemplate } from "./utils/hooks/useTemplate";
+import { Hotel } from "@/modules/interface";
+import Footer from "@/components/Footer";
 
 const Page = () => {
   const { data, isFetching, isLoading, refetch } = useTemplate();
@@ -13,16 +15,15 @@ const Page = () => {
   return (
     <>
       <Navbar />
-      <main className="mx-auto container">
+      <main className="mx-auto md:container">
         <GetstartSearch />
 
-        <section className="flex items-start">
+        <section className="flex flex-col md:flex-row items-start">
           <SortHotel />
 
           <section className="container mx-auto flex flex-col mt-10">
             <header className="flex items-center justify-between mb-3">
-              <h1 className="my-3 ml-4 text-2xl font-bold">
-                Tous les hôtels:{" "}
+              <h1 className="my-3  text-xl italic">
                 {lengthHotels > 1
                   ? lengthHotels + " Hotels"
                   : lengthHotels + " Hotel"}{" "}
@@ -96,12 +97,13 @@ const Page = () => {
               </div>
             </header>
             {data &&
-              data.map((hotel: any) => (
+              data.map((hotel: Hotel) => (
                 <Product hotel={hotel} key={hotel.id} />
               ))}
           </section>
         </section>
       </main>
+      <Footer />
     </>
   );
 };

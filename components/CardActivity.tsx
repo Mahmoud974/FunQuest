@@ -18,14 +18,15 @@ export default function CardActivity({ data }: Props) {
   const { title, description, duration, rating, reviews, image, price } = data;
 
   return (
-    <Card className="w-11/12 rounded-md text-md mb-4 cursor-pointer">
+    <Card className="w-11/12 rounded-md text-md mb-4 cursor-pointer ">
       <CardHeader className="relative h-48">
         <Image
           className="rounded-t-md"
           src="/cambodge.jpg"
           alt="Description de l'image"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
         />
       </CardHeader>

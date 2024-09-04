@@ -9,7 +9,7 @@ import CardFlight from "@/components/CardFlight";
 
 const Page = () => {
   const { data, isFetching, isLoading, refetch } = useTemplateFlights();
-  console.log(data);
+
   let lengthFlights = data && data.length;
   return (
     <>

@@ -19,16 +19,15 @@ const Page = () => {
       <main className="mx-auto container">
         <GetstartSearch />
 
-        <section className="flex items-start">
+        <section className="flex items-start md:flex-row flex-col">
           <SortHotel />
 
-          <section className="container mx-auto flex flex-col mt-10">
-            <header className="flex items-center justify-between mb-3">
-              <h1 className="my-3 ml-4 text-2xl font-bold">
-                Tous les hôtels:{" "}
+          <section className="md:container mx-auto flex flex-col  mt-10">
+            <header className="flex flex-col md:flex-row  items-center md:justify-between mb-3">
+              <h1 className="my-3  text-xl italic">
                 {lengthHotels > 1
-                  ? lengthHotels + " Hotels"
-                  : lengthHotels + " Hotel"}{" "}
+                  ? lengthHotels + " Activites"
+                  : lengthHotels + " Activity"}{" "}
               </h1>
 
               <button
@@ -98,10 +97,10 @@ const Page = () => {
                 </ul>
               </div>
             </header>
-            <div className="grid grid-cols-3">
+            <div className="grid md:grid-cols-3 justify-items-center">
               {data &&
                 data.map((activity: Activities) => (
-                  <CardActivity data={activity} key={data.id} />
+                  <CardActivity data={activity} key={activity.id} />
                 ))}
             </div>
           </section>

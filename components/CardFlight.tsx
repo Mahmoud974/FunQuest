@@ -20,7 +20,6 @@ export default function CardFlight({ data }: Props) {
     price,
     availableSeats,
   } = data;
-  console.log(airline);
 
   return (
     <article className="mb-5 py-4 w-full max-w-screen-lg overflow-hidden h-64 rounded-xl shadow md:pr-8">
