@@ -1,9 +1,9 @@
 import Navbar from '@/components/Navbar';
 import GetstartSearch from '@/components/GetstartSearch';
 import Equipment from '@/components/Description/Equipment';
-import Presentation from '@/app/description/presentation/page';
+import Presentation from '@/app/description/[slug]/[slug]/page';
 import GridImg from '@/components/Description/GridImg';
-import Indication from '@/components/Description/Indication';
+
 import Footer from '@/components/Footer';
 import Questions from '@/components/Description/Questions';
 import Disponibility from '@/components/Description/Disponibility';
@@ -20,7 +20,7 @@ export default function HotelId({ params }: Props) {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar />
       <section className="mx-auto container">
         <GetstartSearch />
         <Breadcrumb />
@@ -32,10 +32,9 @@ export default function HotelId({ params }: Props) {
           <Disponibility />
           <Questions />
           <Nearby />
-          <RuleHouse />
-          {/* <Indication /> */}
-        </section>
-      </section>
+          <RuleHouse /> */}
+      {/* <Indication /> */}
+
       <Footer />
     </>
   );

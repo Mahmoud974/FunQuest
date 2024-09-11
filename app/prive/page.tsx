@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 
 export default function PrivatePg() {
   const { data: session } = useSession();
@@ -10,7 +10,7 @@ export default function PrivatePg() {
 
   useEffect(() => {
     if (!session) {
-      router.replace("/");
+      router.replace('/');
     }
   }, [session, router]); // Le tableau de dépendances assure que useEffect s'exécute lorsque session change
 
@@ -22,7 +22,7 @@ export default function PrivatePg() {
     <div>
       <h1>Private Page</h1>
       <p>Welcome, {session?.user.name}!</p>
-      <button onClick={() => router.replace("/logout")}>Logout</button>
+      <button onClick={() => router.replace('/logout')}>Logout</button>
     </div>
   );
 }

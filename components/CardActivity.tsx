@@ -3,12 +3,12 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card";
-import Image from "next/image";
-import React from "react";
-import { generateStars } from "@/modules/exportFunction";
-import { Activities } from "../modules/interface";
-import { Clock9 } from "lucide-react";
+} from '@/components/ui/card';
+import Image from 'next/image';
+import React from 'react';
+import { generateStars } from '@/modules/exportFunction';
+import { Activities } from '../modules/interface';
+import { Clock9 } from 'lucide-react';
 
 interface Props {
   data: Activities;
@@ -22,10 +22,10 @@ export default function CardActivity({ data }: Props) {
       <CardHeader className="relative h-48">
         <Image
           className="rounded-t-md"
-          src="/cambodge.jpg"
+          src="https://images.unsplash.com/photo-1533616688419-b7a585564566"
           alt="Description de l'image"
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
         />
@@ -47,7 +47,7 @@ export default function CardActivity({ data }: Props) {
       </CardContent>
 
       <CardFooter>
-        <p className="text-lg  ">À partir de {price} par personne</p>
+        <p className="text-lg  ">À partir de {price}€ par personne</p>
       </CardFooter>
     </Card>
   );

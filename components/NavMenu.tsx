@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 import {
   Menubar,
   MenubarContent,
@@ -8,7 +8,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@/components/ui/menubar";
+} from '@/components/ui/menubar';
 import {
   Euro,
   Flag,
@@ -19,11 +19,10 @@ import {
   Drum,
   Mail,
   User,
-} from "lucide-react";
-import Link from "next/link";
+} from 'lucide-react';
+import Link from 'next/link';
 
-import { signIn } from "next-auth/react";
-import { Menu } from "lucide-react";
+import { signIn } from 'next-auth/react';
 
 import {
   Dialog,
@@ -32,17 +31,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "./ui/button";
-import { CircleUser } from "lucide-react";
-import UserLogin from "./UserLogin";
-import MenuBar from "./MenuBarMobile";
+} from '@/components/ui/dialog';
+import { Button } from './ui/button';
+import { CircleUser } from 'lucide-react';
+import UserLogin from './UserLogin';
+import MenuBar from './MenuBarMobile';
 type Props = {};
 
 const NavMenu = (props: Props) => {
   const [isAuth, setAuth] = useState<boolean>(true);
   const onLogin = (provider: string) => () => {
-    signIn(provider, { callbackUrl: "/" });
+    signIn(provider, { callbackUrl: '/' });
   };
   return (
     <>
@@ -135,7 +134,7 @@ const NavMenu = (props: Props) => {
                     Connectez-vous
                   </DialogTitle>
                   <DialogDescription className="flex justify-center text-2xl my-8">
-                    <Button onClick={onLogin("google")}>
+                    <Button onClick={onLogin('google')}>
                       <Mail /> Connect to Google
                     </Button>
                   </DialogDescription>

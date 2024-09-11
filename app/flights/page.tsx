@@ -1,11 +1,13 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
-import GetstartSearch from "@/components/GetstartSearch";
-import Navbar from "@/components/Navbar";
-import SortHotel from "@/components/SortHotel";
-import { useTemplateFlights } from "../utils/hooks/useTemplate";
-import CardFlight from "@/components/CardFlight";
+import GetstartSearch from '@/components/GetstartSearch';
+import Navbar from '@/components/Navbar';
+import SortHotel from '@/components/SortHotel';
+import { useTemplateFlights } from '../utils/hooks/useTemplate';
+import CardFlight from '@/components/CardFlight';
+import { filterTheSearchStore } from '@/store/store';
+import { log } from 'console';
 
 const Page = () => {
   const { data, isFetching, isLoading, refetch } = useTemplateFlights();
@@ -23,8 +25,8 @@ const Page = () => {
             <header className="flex items-center justify-between mb-3">
               <h1 className="my-3  text-xl italic">
                 {lengthFlights > 1
-                  ? lengthFlights + " Flights"
-                  : lengthFlights + " Flight"}{" "}
+                  ? lengthFlights + ' Flights'
+                  : lengthFlights + ' Flight'}{' '}
               </h1>
 
               <button
@@ -33,7 +35,7 @@ const Page = () => {
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
-                Dropdown button{" "}
+                Dropdown button{' '}
                 <svg
                   className="w-2.5 h-2.5 ms-3"
                   aria-hidden="true"

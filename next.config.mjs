@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["images.unsplash.com"], // Ajoute le domaine ici
+    domains: ['images.unsplash.com'], // Correct domain for Unsplash images
   },
 };
 

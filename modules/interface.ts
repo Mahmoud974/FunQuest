@@ -26,11 +26,9 @@ export interface Hotel {
   location: Location;
   amenities: string[];
   rooms: Room[];
-  reviews: {
-    user: string;
-    rating: number;
-    comment: string;
-  };
+  address: string;
+  reviews: Review[];
+  pricePerNight: number;
 }
 
 export interface User {
