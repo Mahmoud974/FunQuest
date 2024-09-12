@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Slider } from '@/components/ui/slider';
+import { useTemplate } from '@/app/utils/hooks/useTemplate';
+import { Hotel } from '@/modules/interface';
 
 const SortHotel = () => {
+  const { data } = useTemplate();
+  let priceHotel = data?.map((item: Hotel) => item.pricePerNight);
+
   const typesHebergement = [
     'Hôtel',
     'Resort',
@@ -36,7 +41,7 @@ const SortHotel = () => {
   ];
 
   const [rating, setRating] = useState(3);
-  const [price, setPrice] = useState(250);
+  const [price, setPrice] = useState(750);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
@@ -69,7 +74,7 @@ const SortHotel = () => {
               <div className="flex items-center">
                 <Slider
                   defaultValue={[price]}
-                  max={100}
+                  max={900}
                   step={1}
                   onChange={handlePriceChange}
                 />

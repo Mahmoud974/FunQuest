@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GetstartSearch from '@/components/GetstartSearch';
 import Navbar from '@/components/Navbar';
 import Product from '@/components/Product';
@@ -7,6 +7,7 @@ import SortHotel from '@/components/SortHotel';
 import { Hotel } from '@/modules/interface';
 import Footer from '@/components/Footer';
 import { useTemplate } from './utils/hooks/useTemplate';
+import { ComboboxDemo } from '@/components/Sort';
 
 const Page = () => {
   const { data } = useTemplate();
@@ -20,9 +21,10 @@ const Page = () => {
   const totalPages = Math.ceil(lengthHotels / itemsPerPage);
 
   // Ensure data is defined before slicing
-  const currentHotels = data
-    ? data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-    : [];
+  const currentHotels =
+    data && Array.isArray(data)
+      ? data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+      : [];
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -45,6 +47,8 @@ const Page = () => {
                   ? lengthHotels + ' Hotels'
                   : lengthHotels + ' Hotel'}
               </h1>
+
+              <ComboboxDemo />
             </header>
 
             {/* Display current page hotels */}

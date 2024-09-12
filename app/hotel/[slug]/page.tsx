@@ -9,7 +9,7 @@ import Questions from '@/components/Description/Questions';
 import Disponibility from '@/components/Description/Disponibility';
 import RuleHouse from '@/components/Description/RuleHouse';
 import Nearby from '@/components/Description/Nearby';
-import NavDescription from '@/components/Description/NavDescription';
+import NavDescription from '@/components/Description/[slug]/NavDescription';
 import Breadcrumb from '@/components/Description/Breadcrumb';
 
 type Props = {

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import {
@@ -7,7 +8,6 @@ import {
   Share,
   ThumbsUp,
   Ticket,
-  Umbrella,
   Waves,
 } from 'lucide-react';
 import {
@@ -18,15 +18,22 @@ import {
 } from '@radix-ui/react-tooltip';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import { useHotel } from '@/app/provider/HotelContext';
+import ReactCountryFlag from 'react-country-flag';
 
-export default function GridImg() {
+export default function GridImg({}: any) {
+  const { findHotel } = useHotel();
+  console.log(findHotel);
+  console.log(findHotel?.countryAbbr);
+
   return (
     <>
       <div className="flex justify-between">
         {/* Informations sur la destination */}
         <div className="flex flex-col">
           <div className="flex items-center">
-            <h1 className="text-3xl font-bold">Bandos Maldives</h1>
+            <h1 className="text-3xl font-bold">{findHotel?.name}</h1>
+
             <ul className="flex items-center ml-2 text-yellow-300">
               <li className="text-xl">★</li>
               <li className="text-xl">★</li>
@@ -37,7 +44,16 @@ export default function GridImg() {
           <div className="flex mt-1">
             <MapPin className="text-blue-700" />
             <p className="ml-1">
-              Bandos Island, 08480 Atoll Malé Nord, Maldives
+              {findHotel?.address}, {findHotel?.city},
+              <span className="font-bold"> {findHotel?.country}</span>
+              <ReactCountryFlag
+                className="pb-1 ml-1"
+                countryCode={findHotel?.countryAbbr}
+                style={{
+                  fontSize: '1.4em',
+                  lineHeight: '1.4em',
+                }}
+              />
             </p>
           </div>
           <ul className="flex list-none items-center mt-3 space-x-3">
@@ -67,7 +83,7 @@ export default function GridImg() {
         {/* Prix et actions */}
         <div>
           <ul className="flex justify-end">
-            <li className="text-2xl font-bold">3,020€</li>
+            <li className="text-2xl font-bold">{findHotel?.pricePerNight}€</li>
           </ul>
           <ul className="flex items-center justify-end space-x-4">
             <li>

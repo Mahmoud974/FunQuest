@@ -1,5 +1,4 @@
 'use client';
-
 import * as React from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 
@@ -18,6 +17,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useTemplate } from '@/app/utils/hooks/useTemplate';
+import { useSortStore } from '@/store/store';
 
 const frameworks = [
   {
@@ -33,6 +34,25 @@ const frameworks = [
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
+  // const [sortHotel, setSortHotel] = React.useState<number[]>();
+  const { data } = useTemplate();
+  const { hotelSort, sortHotel } = useSortStore();
+  console.log(sortHotel);
+
+  // const hotelSort = (sortType: string) => {
+  //   if (sortType === 'less') {
+  //     setSortHotel(
+  //       data?.sort((a: any, b: any) => a.pricePerNight - b.pricePerNight)
+  //     );
+  //     console.log(sortHotel);
+  //   } else if (sortType === 'more') {
+  //     setSortHotel(
+  //       data?.sort((a: any, b: any) => b.pricePerNight - a.pricePerNight)
+  //     );
+  //     console.log(sortHotel);
+  //   }
+  //   console.log('Trié:', sortType);
+  // };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -54,13 +74,15 @@ export function ComboboxDemo() {
           <CommandList>
             <CommandEmpty>Triez par :</CommandEmpty>
             <CommandGroup>
-              <p></p>
               {frameworks.map((framework) => (
                 <CommandItem
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
+                    const selectedValue =
+                      currentValue === value ? '' : currentValue;
+                    setValue(selectedValue);
+                    hotelSort(selectedValue); // Appelle la fonction de tri avec la valeur sélectionnée
                     setOpen(false);
                   }}
                 >

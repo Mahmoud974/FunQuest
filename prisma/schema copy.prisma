@@ -32,17 +32,33 @@ model Hotel {
   address       String
   city          String
   country       String
-  countryAbbr   String
-  mainMoney     String
-  money         String[]
-  wordlPlugs    String[]
-  stars         Int
-  reviews       Int
+  latitude      Float
+  longitude     Float
   amenities     String[]
   pricePerNight Float
-  descriptions  String
-  typeRoom      String
-  rate          Float
+
+  rooms   RoomDetail[]
+  reviews ReviewDetail[]
+}
+
+model RoomDetail {
+  id            Int     @id @default(autoincrement())
+  type          String
+  description   String
+  pricePerNight Float
+  currency      String
+  availability  Boolean
+  hotelId       Int
+  hotel         Hotel   @relation(fields: [hotelId], references: [id])
+}
+
+model ReviewDetail {
+  id      Int    @id @default(autoincrement())
+  user    String
+  rating  Float
+  comment String
+  hotelId Int
+  hotel   Hotel  @relation(fields: [hotelId], references: [id])
 }
 
 model Activity {

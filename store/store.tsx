@@ -1,3 +1,4 @@
+import SortHotel from '@/components/SortHotel';
 import { create } from 'zustand';
 
 type Store = {
@@ -46,3 +47,61 @@ export const filterTheSearchStore = create<FilterStoreState>((set) => ({
       return { filteredData };
     }),
 }));
+
+export const useSortStore = create<any>()((set) => ({
+  db: null, // Base de données des hôtels
+  sortType: '', // Type de tri
+  sortHotel: [], // Liste des hôtels triés
+
+  setDb: (db: any) => set({ db }),
+
+  hotelSort: (sortType: string) => {
+    set((state: any) => {
+      if (sortType === 'less') {
+        console.log('Tri par prix croissant (moins cher)');
+
+        return {
+          sortHotel: state.db
+            ?.slice()
+            .sort((a: any, b: any) => a.pricePerNight - b.pricePerNight),
+          sortType, // Met à jour le type de tri
+        };
+      } else if (sortType === 'more') {
+        console.log('Tri par prix décroissant (plus cher)');
+
+        return {
+          sortHotel: state.db
+            ?.slice()
+            .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight),
+          sortType, // Met à jour le type de tri
+        };
+      }
+    });
+  },
+}));
+
+// export const useSortStore = create<any>()((set, get) => ({
+//   db: null, // Contiendra les données de l'hôtel
+//   sortHotel: [], // Stocke les hôtels triés
+//   setDb: (db: any) => set({ db }), // Met à jour la base de données
+
+//   hotelSort: (sortType: string) => {
+//     const data = get().db; // Récupère les données actuelles depuis l'état
+
+//     if (sortType === 'less') {
+//       const sortedData = data
+//         ?.slice()
+//         .sort((a: any, b: any) => a.pricePerNight - b.pricePerNight);
+//       set({ sortHotel: sortedData });
+//       console.log('Trié moins cher:', sortedData);
+//     } else if (sortType === 'more') {
+//       const sortedData = data
+//         ?.slice()
+//         .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight);
+//       set({ sortHotel: sortedData });
+//       console.log('Trié plus cher:', sortedData);
+//     }
+
+//     console.log('Trié par:', sortType);
+//   },
+// }));

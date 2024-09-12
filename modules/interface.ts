@@ -29,6 +29,7 @@ export interface Hotel {
   address: string;
   reviews: Review[];
   pricePerNight: number;
+  rate: number;
 }
 
 export interface User {
