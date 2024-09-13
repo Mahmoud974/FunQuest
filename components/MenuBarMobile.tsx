@@ -3,46 +3,13 @@ import {
   SheetContent,
   SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import {
-  Euro,
-  Flag,
-  ShoppingBasket,
-  Heart,
-  Plane,
-  House,
-  Drum,
-  Mail,
-  User,
-} from "lucide-react";
-import Link from "next/link";
-
-import { signIn } from "next-auth/react";
-import { Menu } from "lucide-react";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "./ui/button";
-import { CircleUser } from "lucide-react";
-import UserLogin from "./UserLogin";
+} from '@/components/ui/sheet';
+import { MenubarMenu, MenubarTrigger } from '@/components/ui/menubar';
+import { ShoppingBasket, Heart, Plane, House, Drum } from 'lucide-react';
+import Link from 'next/link';
+import { Menu } from 'lucide-react';
+import { CircleUser } from 'lucide-react';
 
 export default function MenuBar() {
   return (
@@ -78,7 +45,7 @@ export default function MenuBar() {
                   <MenubarMenu>
                     <Link href="/activities">
                       <MenubarTrigger className="cursor-pointer">
-                        <ShoppingBasket className="mr-2 text-2xl" />{" "}
+                        <ShoppingBasket className="mr-2 text-2xl" />{' '}
                         <p>Activities</p>
                       </MenubarTrigger>
                     </Link>
@@ -86,7 +53,7 @@ export default function MenuBar() {
                   <MenubarMenu>
                     <Link href="/activities">
                       <MenubarTrigger className="cursor-pointer">
-                        <Heart className="mr-2 text-2xl" />{" "}
+                        <Heart className="mr-2 text-2xl" />{' '}
                         <p>Liste de jaime</p>
                       </MenubarTrigger>
                     </Link>

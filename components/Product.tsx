@@ -1,9 +1,8 @@
-import { Hotel, Review } from '@/modules/interface';
+import { Hotel } from '@/modules/interface';
 import React from 'react';
 import { Map } from 'lucide-react';
 import { Button } from './ui/button';
 import { CarouselProduct } from './Carousel';
-import { generateStars } from '@/modules/exportFunction';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 

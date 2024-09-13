@@ -19,7 +19,6 @@ export default function page() {
       <Navbar />
       <section className="mx-auto container ">
         <section className="flex flex-grow gap-2 mt-12">
-          {/* HotelName */}
           <section className="flex-col flex gap-5 ">
             <NameHotel />
             <DetailsHotel />

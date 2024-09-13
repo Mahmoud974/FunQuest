@@ -9,7 +9,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
@@ -21,24 +20,12 @@ import {
 
 const frameworks = [
   {
-    value: 'next.js',
-    label: 'Next.js',
+    value: 'Newstyle',
+    label: 'Newstyle',
   },
   {
-    value: 'sveltekit',
-    label: 'SvelteKit',
-  },
-  {
-    value: 'nuxt.js',
-    label: 'Nuxt.js',
-  },
-  {
-    value: 'remix',
-    label: 'Remix',
-  },
-  {
-    value: 'astro',
-    label: 'Astro',
+    value: 'Manuscrit',
+    label: 'Newstyle',
   },
 ];
 

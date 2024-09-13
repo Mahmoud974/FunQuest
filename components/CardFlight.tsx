@@ -1,8 +1,7 @@
-import React from "react";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "./ui/button";
-import { Flights } from "@/modules/interface";
-import { Heart, Share } from "lucide-react";
+import React from 'react';
+import { Button } from './ui/button';
+import { Flights } from '@/modules/interface';
+import { Heart, Share } from 'lucide-react';
 
 type Props = {
   data: Flights;
@@ -13,12 +12,9 @@ export default function CardFlight({ data }: Props) {
     airline,
     departureCity,
     arrivalCity,
-    departureDate,
     departureTime,
     arrivalTime,
-    duration,
     price,
-    availableSeats,
   } = data;
 
   return (
@@ -45,7 +41,7 @@ export default function CardFlight({ data }: Props) {
             <li>
               <div className="flex justify-between">
                 <p className="font-bold text-xl">
-                  {" "}
+                  {' '}
                   {departureTime} - {arrivalTime}
                 </p>
                 <p className="text-md"> direct</p>
@@ -59,7 +55,7 @@ export default function CardFlight({ data }: Props) {
             <li className="mt-2">
               <div className="flex justify-between">
                 <p className="font-bold text-xl">
-                  {" "}
+                  {' '}
                   {arrivalTime} - {departureTime}
                 </p>
                 <p className="text-md"> direct</p>
@@ -71,7 +67,6 @@ export default function CardFlight({ data }: Props) {
               <p>{airline}</p>
             </li>
           </ul>
-
           <div className="flex flex-col flex-3 ml-12">
             <div className="flex flex-row items-center">
               <p className="text-3xl font-bold">{price}€</p>

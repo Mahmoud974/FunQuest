@@ -37,7 +37,7 @@ import UserLogin from './UserLogin';
 import MenuBar from './MenuBarMobile';
 
 const NavMenu = () => {
-  const [isAuth, setAuth] = useState<boolean>(true);
+  const [isAuth, setAuth] = useState<any>(true);
   const onLogin = (provider: string) => () => {
     signIn(provider, { callbackUrl: '/' });
   };

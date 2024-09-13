@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import GetstartSearch from '@/components/GetstartSearch';
 import Navbar from '@/components/Navbar';
 import Product from '@/components/Product';
@@ -22,11 +22,7 @@ const Page = () => {
     console.log(sortHotel);
   }, [sortHotel, bool]);
   const lengthHotels = data ? data.length : 0;
-
-  // Calculate total pages
   const totalPages = Math.ceil(lengthHotels / itemsPerPage);
-
-  // Ensure data is defined before slicing
 
   const currentHotels =
     (sortHotel && sortHotel.length > 0 ? sortHotel : data)?.slice(

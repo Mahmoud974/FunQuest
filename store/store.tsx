@@ -1,4 +1,3 @@
-import SortHotel from '@/components/SortHotel';
 import { create } from 'zustand';
 
 type Store = {
