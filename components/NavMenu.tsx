@@ -18,7 +18,6 @@ import {
   House,
   Drum,
   Mail,
-  User,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -36,9 +35,8 @@ import { Button } from './ui/button';
 import { CircleUser } from 'lucide-react';
 import UserLogin from './UserLogin';
 import MenuBar from './MenuBarMobile';
-type Props = {};
 
-const NavMenu = (props: Props) => {
+const NavMenu = () => {
   const [isAuth, setAuth] = useState<boolean>(true);
   const onLogin = (provider: string) => () => {
     signIn(provider, { callbackUrl: '/' });

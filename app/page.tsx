@@ -8,23 +8,31 @@ import { Hotel } from '@/modules/interface';
 import Footer from '@/components/Footer';
 import { useTemplate } from './utils/hooks/useTemplate';
 import { ComboboxDemo } from '@/components/Sort';
+import { useSortStore } from '@/store/store';
 
 const Page = () => {
   const { data } = useTemplate();
-
   const [currentPage, setCurrentPage] = useState(1); // Current page state
   const itemsPerPage = 5; // Number of hotels to display per page
+  const { sortHotel, bool } = useSortStore(); // Accède aux hôtels triés et à la fonction de tri
 
+  React.useEffect(() => {
+    console.log(bool);
+
+    console.log(sortHotel);
+  }, [sortHotel, bool]);
   const lengthHotels = data ? data.length : 0;
 
   // Calculate total pages
   const totalPages = Math.ceil(lengthHotels / itemsPerPage);
 
   // Ensure data is defined before slicing
+
   const currentHotels =
-    data && Array.isArray(data)
-      ? data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-      : [];
+    (sortHotel && sortHotel.length > 0 ? sortHotel : data)?.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    ) || [];
 
   // Handle page change
   const handlePageChange = (page: number) => {

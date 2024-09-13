@@ -3,9 +3,7 @@ import NavMenu from './NavMenu';
 import Link from 'next/link';
 import Image from 'next/image';
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   return (
     <>
       <div className="relative">

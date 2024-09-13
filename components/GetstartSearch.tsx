@@ -12,10 +12,7 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar';
 import { UsersRound, ChevronDown } from 'lucide-react';
-import {
-  useTemplateActivities,
-  useTemplate,
-} from '@/app/utils/hooks/useTemplate';
+import { useTemplateActivities } from '@/app/utils/hooks/useTemplate';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { filterTheSearchStore } from '@/store/store';
 import { z } from 'zod';

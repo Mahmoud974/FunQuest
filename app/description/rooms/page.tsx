@@ -8,86 +8,76 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Users } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 
-export default function page() {
+const rowData = [
+  {
+    description: `Sélectionnez le type et le nombre d'hébergements que vous souhaitez réserver.
+Type d'hébergement	Nombre de voyageurs	
+Tarif pour 61 nuits	Vos options	Sélectionnez un nombre
+Surclassement gratuit
+Wellbeing Sanctuary Pool Villa with Free Transfer min. 3 nights & one-time shared Sunset Cruise or Night Fishing for 2 Pax per stay Min 4 nights | Valid for stays until 31 Oct 2024`,
+    price: '30€',
+    discount: '-10%',
+    total: '$250.00',
+    options: [
+      'Petit-déjeuner compris - Exceptionnel',
+      'Compris : Internet haut débit',
+      'Annulation gratuite avant le 10 juin 2025',
+      'Surclassement gratuit appliqué',
+    ],
+  },
+  // On peut ajouter d'autres objets similaires ici si nécessaire
+];
+
+export default function Page() {
   return (
     <Table>
       <TableHeader>
-        <TableRow className="bg-purple-600  ">
-          <TableHead className="w-[100px] text-white">{`Type d'hébergement`}</TableHead>
-          <TableHead className=" text-white">Nombre de voyageurs</TableHead>
-          <TableHead className=" text-white">Tarif pour 61 nuits</TableHead>
-          <TableHead className=" text-white">Vos options</TableHead>
-          <TableHead className="w-[100px] text-white">
-            Sélectionnez un nombre
-          </TableHead>
+        <TableRow className="bg-purple-600">
+          {[
+            "Type d'hébergement",
+            'Nombre de voyageurs',
+            'Tarif pour 61 nuits',
+            'Vos options',
+            'Sélectionnez un nombre',
+          ].map((header) => (
+            <TableHead key={header} className="text-white">
+              {header}
+            </TableHead>
+          ))}
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow className="bg-purple-50">
-          <TableCell className="font-medium">
-            <p className="w-72">{`Sélectionnez le type et le nombre d'hébergements que vous souhaitez réserver.
-Type d'hébergement	Nombre de voyageurs	
-Tarif pour 61 nuits	Vos options	Sélectionnez un nombre
-Surclassement gratuit
-Wellbeing Sanctuary Pool Villa with Free Transfer min. 3 nights & one-time shared Sunset Cruise or Night Fishing for 2 Pax per stay Min 4 nights | Valid for stays until 31 Oct 2024`}</p>
-          </TableCell>
-          <TableCell className="">
-            <Users />
-          </TableCell>
-          <TableCell>
-            <ul className="flex flex-col  space-y-3 text-xl">
-              <li className="font-bold">30€</li>
-              <li>
-                <Button className="bg-yellow-400 text-black font-bold text-lg">
-                  -10%
-                </Button>
-              </li>
-              <li>30€</li>
-            </ul>
-          </TableCell>
-          <TableCell className="">$250.00</TableCell>
-          <TableCell className="text-right space-y-2">
-            <ul className="">
-              <li>Petit-déjeuner compris - Exceptionnel</li>
-              <li>Compris : Internet haut débit</li>
-              <li>Annulation gratuite avant le 10 juin 2025</li>
-              <li>Surclassement gratuit appliqué</li>
-            </ul>
-          </TableCell>
-        </TableRow>
-        <TableRow className="bg-purple-50">
-          <TableCell className="font-medium">
-            <p className="w-72">{`Sélectionnez le type et le nombre d'hébergements que vous souhaitez réserver.
-Type d'hébergement	Nombre de voyageurs	
-Tarif pour 61 nuits	Vos options	Sélectionnez un nombre
-Surclassement gratuit
-Wellbeing Sanctuary Pool Villa with Free Transfer min. 3 nights & one-time shared Sunset Cruise or Night Fishing for 2 Pax per stay Min 4 nights | Valid for stays until 31 Oct 2024`}</p>
-          </TableCell>
-          <TableCell className="">
-            <Users />
-          </TableCell>
-          <TableCell>
-            <ul className="flex flex-col  space-y-3 text-xl">
-              <li className="font-bold">30€</li>
-              <li>
-                <Button variant="default">-10%</Button>
-              </li>
-              <li>30€</li>
-            </ul>
-          </TableCell>
-          <TableCell className="">$250.00</TableCell>
-          <TableCell className="text-right space-y-2">
-            <ul className="">
-              <li>Petit-déjeuner compris - Exceptionnel</li>
-              <li>Compris : Internet haut débit</li>
-              <li>Annulation gratuite avant le 10 juin 2025</li>
-              <li>Surclassement gratuit appliqué</li>
-            </ul>
-          </TableCell>
-        </TableRow>
+        {rowData.map((row, idx) => (
+          <TableRow key={idx} className="bg-purple-50">
+            <TableCell className="font-medium w-72">
+              <p>{row.description}</p>
+            </TableCell>
+            <TableCell>
+              <Users />
+            </TableCell>
+            <TableCell>
+              <ul className="flex flex-col space-y-3 text-xl">
+                <li className="font-bold">{row.price}</li>
+                <li>
+                  <Button className="bg-yellow-300 text-black font-bold text-lg">
+                    {row.discount}
+                  </Button>
+                </li>
+                <li>{row.price}</li>
+              </ul>
+            </TableCell>
+            <TableCell>{row.total}</TableCell>
+            <TableCell className="text-right space-y-2">
+              <ul>
+                {row.options.map((option, i) => (
+                  <li key={i}>{option}</li>
+                ))}
+              </ul>
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

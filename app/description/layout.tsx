@@ -16,7 +16,6 @@ export default function RootLayout({
 }>) {
   return (
     <HotelProvider>
-      {' '}
       {/* Encapsuler le layout dans le Provider */}
       <section className={inter.className}>
         <Navbar />

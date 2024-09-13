@@ -11,7 +11,7 @@ import { filterTheSearchStore } from '@/store/store';
 import Link from 'next/link';
 
 const Page = () => {
-  const { data, isFetching, isLoading, refetch } = useTemplateActivities();
+  const { data } = useTemplateActivities();
   const { filteredData, filterData } = filterTheSearchStore(); // Utilise les données filtrées et la fonction de filtrage du store
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedData, setDisplayedData] = useState<any>(data || []);

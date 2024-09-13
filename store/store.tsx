@@ -48,60 +48,91 @@ export const filterTheSearchStore = create<FilterStoreState>((set) => ({
     }),
 }));
 
-export const useSortStore = create<any>()((set) => ({
-  db: null, // Base de données des hôtels
+// export const useSortStore = create<any>()((set) => ({
+//   bool: false,
+//   sortType: '', // Type de tri
+//   sortHotel: [], // Liste des hôtels triés (initialisé à un tableau vide)
+
+//   hotelSort: (sortType: string, data: any) => {
+//     set((state: any) => {
+//       if (sortType === 'less') {
+//         console.log('Tri par prix croissant (moins cher)');
+//         return {
+//           sortHotel: data
+//             ?.slice()
+//             .sort((a: any, b: any) => a.pricePerNight - b.pricePerNight),
+//           sortType,
+//           bool: true, // Active l'état de tri
+//         };
+//       } else if (sortType === 'more') {
+//         console.log('Tri par prix décroissant (plus cher)');
+//         return {
+//           sortHotel: data
+//             ?.slice()
+//             .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight),
+//           sortType,
+//           bool: true, // Active l'état de tri
+//         };
+//       } else if (sortType === 'remettre') {
+//         console.log("Remettre à l'état initial");
+//         return {
+//           sortHotel: data, // Restaure les données initiales
+//           sortType: '', // Réinitialise le type de tri
+//           bool: false, // Désactive l'état de tri
+//         };
+//       }
+//     });
+//   },
+// }));
+
+export const useSortStore = create<any>()((set, get) => ({
+  bool: false,
   sortType: '', // Type de tri
-  sortHotel: [], // Liste des hôtels triés
+  sortHotel: [], // Liste des hôtels triés (initialisé à un tableau vide)
 
-  setDb: (db: any) => set({ db }),
+  hotelSort: (sortType: string, data: any) => {
+    const { sortType: currentSortType } = get(); // Récupère le type de tri actuel
 
-  hotelSort: (sortType: string) => {
     set((state: any) => {
+      // Si on clique à nouveau sur le même tri, ne pas retrier
+      if (currentSortType === sortType) {
+        return { sortHotel: state.sortHotel }; // Ne change rien si le tri est déjà fait
+      }
+
+      // Cas de tri par prix croissant (moins cher)
       if (sortType === 'less') {
         console.log('Tri par prix croissant (moins cher)');
-
         return {
-          sortHotel: state.db
+          sortHotel: data
             ?.slice()
             .sort((a: any, b: any) => a.pricePerNight - b.pricePerNight),
-          sortType, // Met à jour le type de tri
-        };
-      } else if (sortType === 'more') {
-        console.log('Tri par prix décroissant (plus cher)');
-
-        return {
-          sortHotel: state.db
-            ?.slice()
-            .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight),
-          sortType, // Met à jour le type de tri
+          sortType,
+          bool: true,
         };
       }
+
+      // Cas de tri par prix décroissant (plus cher)
+      else if (sortType === 'more') {
+        console.log('Tri par prix décroissant (plus cher)');
+        return {
+          sortHotel: data
+            ?.slice()
+            .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight),
+          sortType,
+          bool: true,
+        };
+      }
+
+      // Cas de réinitialisation du tri
+      else if (sortType === 'remettre') {
+        console.log("Remettre à l'état initial");
+        return {
+          sortHotel: data, // Restaure les données initiales
+          sortType: '', // Réinitialise le type de tri
+          bool: false,
+        };
+      }
+      return state;
     });
   },
 }));
-
-// export const useSortStore = create<any>()((set, get) => ({
-//   db: null, // Contiendra les données de l'hôtel
-//   sortHotel: [], // Stocke les hôtels triés
-//   setDb: (db: any) => set({ db }), // Met à jour la base de données
-
-//   hotelSort: (sortType: string) => {
-//     const data = get().db; // Récupère les données actuelles depuis l'état
-
-//     if (sortType === 'less') {
-//       const sortedData = data
-//         ?.slice()
-//         .sort((a: any, b: any) => a.pricePerNight - b.pricePerNight);
-//       set({ sortHotel: sortedData });
-//       console.log('Trié moins cher:', sortedData);
-//     } else if (sortType === 'more') {
-//       const sortedData = data
-//         ?.slice()
-//         .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight);
-//       set({ sortHotel: sortedData });
-//       console.log('Trié plus cher:', sortedData);
-//     }
-
-//     console.log('Trié par:', sortType);
-//   },
-// }));

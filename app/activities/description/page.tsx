@@ -1,74 +1,23 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import GetstartSearch from '@/components/GetstartSearch';
 import Navbar from '@/components/Navbar';
 import SortHotel from '@/components/SortHotel';
-import CardActivity from '@/components/CardActivity';
-import { Activities } from '@/modules/interface';
-import { ComboboxDemo } from '@/components/Sort';
-import { filterTheSearchStore } from '@/store/store';
-import Link from 'next/link';
-import { useTemplateActivities } from '@/app/utils/hooks/useTemplate';
-import GridImg from '@/components/Description/GridImg';
-import {
-  Accessibility,
-  CalendarCheck,
-  Clock,
-  CreditCard,
-  PersonStanding,
-  User,
-} from 'lucide-react';
+import { CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import Image from 'next/image';
+import { aboutActivity } from '@/modules/exportFunction';
 
 const Page = () => {
-  const { data, isFetching, isLoading, refetch } = useTemplateActivities();
-  const { filteredData, filterData } = filterTheSearchStore(); // Utilise les données filtrées et la fonction de filtrage du store
-  const [currentPage, setCurrentPage] = useState(1);
-  const [displayedData, setDisplayedData] = useState<any>(data || []);
-  const itemsPerPage = 6;
-
-  // Gérer le changement de page
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-  type ActivityAbout = {};
-
-  const aboutActivity = [
-    {
-      logo: <CalendarCheck />,
-      title: 'Annulation gratuite',
-      content: `Annulation jusqu’à 24 heures à l’avance pour un remboursement intégral`,
-    },
-    {
-      logo: <CreditCard />,
-      title: 'Réservez maintenant, payez plus tard',
-      content: `Restez flexible dans vos projets de voyage : réservez votre place sans rien payer aujourd'hui`,
-    },
-    {
-      logo: <Clock />,
-      title: 'Durée 70 minutes',
-      content: `Vérifiez les disponibilités pour voir les heures de début`,
-    },
-    {
-      logo: <User />,
-      title: 'Guide',
-      content: `Anglais`,
-    },
-    {
-      logo: <Accessibility />,
-      title: 'Accessible aux personnes en fauteuil roulant',
-      content: null,
-    },
-  ];
-
   return (
     <>
       <Navbar />
       <main className="mx-auto container">
         <GetstartSearch />
-
         <section className="flex items-start md:flex-row flex-col">
           <SortHotel />
+
           <section className="md:container mx-auto flex  mt-10">
             <section>
               <aside className="w-[30em]">
@@ -77,6 +26,7 @@ const Page = () => {
                   qui sont menées dans le domaine des maths, de la science et de
                   la technologie, à l'occasion d'une visite guidée de 1 h 10.`}
               </aside>
+
               <aside>
                 <h1 className="font-bold text-2xl my-3">
                   À propos de cette activité
@@ -222,113 +172,35 @@ const Page = () => {
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">
                       Filtrer
                     </h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            checked
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          Tous types de voyage
-                        </label>
-                      </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          En couple
-                        </label>
-                      </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          Entre ami·es
-                        </label>
-                      </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          En solo
-                        </label>
-                      </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          En famille
-                        </label>
-                      </li>
-                    </ul>
+                    <div className="flex items-center">
+                      <span className="text-sm">Étoiles: {12}</span>
+                      <Slider
+                        defaultValue={[12]}
+                        min={0}
+                        max={5}
+                        step={1}
+                        className="w-full custom-slider-width" // Appliquez une classe personnalisée
+                      />
+                    </div>
 
                     <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
                       Par note
                     </h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            checked
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          Tous les avis
-                        </label>
+                    <ul className=" flex flex-wrap space-x-2">
+                      <li className="flex text-md items-center justify-center p-2 border rounded-lg hover:bg-blue-700 hover:text-white hover:font-bold cursor-pointer">
+                        Tous types de voyage
                       </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          5 étoiles
-                        </label>
+                      <li className="flex text-md items-center justify-center p-2 border rounded-lg hover:bg-blue-700 hover:text-white hover:font-bold cursor-pointer">
+                        En couple
                       </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          4 étoiles
-                        </label>
+                      <li className="flex text-md items-center justify-center p-2 border rounded-lg hover:bg-blue-700 hover:text-white hover:font-bold cursor-pointer">
+                        Entre amis
                       </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          3 étoiles
-                        </label>
+                      <li className="flex text-md items-center justify-center p-2 border rounded-lg hover:bg-blue-700 hover:text-white hover:font-bold cursor-pointer">
+                        En solo
                       </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          2 étoiles
-                        </label>
-                      </li>
-                      <li>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2 h-4 w-4 text-blue-600"
-                          />{' '}
-                          1 étoile
-                        </label>
+                      <li className="flex text-md items-center justify-center p-2 border rounded-lg hover:bg-blue-700 hover:text-white hover:font-bold cursor-pointer">
+                        En famille
                       </li>
                     </ul>
                   </div>
@@ -364,7 +236,7 @@ const Page = () => {
                         meet again Houston.
                       </p>
                       <p className="mt-2 text-blue-600 cursor-pointer">
-                        <a href="#">Utile ? Oui</a>
+                        Utile ? Oui
                       </p>
                     </li>
 
@@ -385,7 +257,7 @@ const Page = () => {
                         MIT and was happy to answer any questions we had.`}
                       </p>
                       <p className="mt-2 text-blue-600 cursor-pointer">
-                        <a href="#">Utile ? Oui</a>
+                        Utile ? Oui
                       </p>
                     </li>
                   </ul>

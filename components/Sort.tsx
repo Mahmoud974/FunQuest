@@ -29,31 +29,20 @@ const frameworks = [
     value: 'more',
     label: 'le + cher',
   },
+  {
+    value: 'remettre',
+    label: 'remettre',
+  },
 ];
-
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
-  // const [sortHotel, setSortHotel] = React.useState<number[]>();
-  const { data } = useTemplate();
-  const { hotelSort, sortHotel } = useSortStore();
-  console.log(sortHotel);
+  const { data } = useTemplate(); // Les données de l'API ou des hôtels
+  const { sortHotel, hotelSort } = useSortStore(); // Accède aux hôtels triés et à la fonction de tri
 
-  // const hotelSort = (sortType: string) => {
-  //   if (sortType === 'less') {
-  //     setSortHotel(
-  //       data?.sort((a: any, b: any) => a.pricePerNight - b.pricePerNight)
-  //     );
-  //     console.log(sortHotel);
-  //   } else if (sortType === 'more') {
-  //     setSortHotel(
-  //       data?.sort((a: any, b: any) => b.pricePerNight - a.pricePerNight)
-  //     );
-  //     console.log(sortHotel);
-  //   }
-  //   console.log('Trié:', sortType);
-  // };
-
+  React.useEffect(() => {
+    // console.log(sortHotel);
+  }, [sortHotel]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -82,7 +71,10 @@ export function ComboboxDemo() {
                     const selectedValue =
                       currentValue === value ? '' : currentValue;
                     setValue(selectedValue);
-                    hotelSort(selectedValue); // Appelle la fonction de tri avec la valeur sélectionnée
+
+                    // Appelle la fonction de tri avec les données et le type de tri sélectionné
+                    hotelSort(selectedValue, data);
+
                     setOpen(false);
                   }}
                 >

@@ -1,19 +1,11 @@
-'use client';
-import { Bus, BicepsFlexed, EggFried, Hotel } from 'lucide-react';
-import React, { useState } from 'react';
-import { FaSpa, FaUmbrellaBeach } from 'react-icons/fa';
-import { PiSwimmingPoolDuotone } from 'react-icons/pi';
-import { useRouter } from 'next/navigation';
+import { EquipementIcon } from '@/modules/exportFunction';
+import React from 'react';
 
-import { useTemplate } from '@/app/utils/hooks/useTemplate';
-
-type Props = {
-  params: {
-    hotelName: string; // Utilisez le nom de votre paramètre ici
-  };
+type Equipement = {
+  icon: React.JSX.Element;
+  text: string;
 };
-
-export default function Presentation({ params }: any) {
+export default function Presentation() {
   return (
     <>
       <article className="mt-3">
@@ -24,7 +16,7 @@ export default function Presentation({ params }: any) {
             </p>
             <p className="text-2xl ml-2">Exceptionnel</p>
           </div>
-          <p>Les voyageurs ont aimé :</p>
+          <p>Les voyageurs ont aimés :</p>
           <p>Chambres propres, personnel amical, chambres confortables</p>
           <p className="text-blue-500 text-1xl mt-2 underline">
             Afficher 136 avis
@@ -65,30 +57,12 @@ export default function Presentation({ params }: any) {
         <section className="mb-8">
           <h2 className="text-2xl font-bold my-4">Équipements populaires</h2>
           <ul className="grid grid-cols-4 gap-4 ">
-            <li className="flex items-center">
-              <PiSwimmingPoolDuotone className="text-3xl mr-1 text-amber-700" />{' '}
-              Piscine extérieure
-            </li>
-            <li className="flex items-center">
-              <FaSpa className="text-2xl mr-1 text-amber-700" /> Spa & centre de
-              bien-être
-            </li>
-            <li className="flex items-center">
-              <Bus className="mr-1 text-amber-700" /> Navette aéroport
-            </li>
-            <li className="flex items-center">
-              <FaUmbrellaBeach className="mr-1 text-amber-700 text-2xl" /> En
-              bord de plage
-            </li>
-            <li className="flex items-center">
-              <BicepsFlexed className="mr-1 text-amber-700" /> Salle de sport
-            </li>
-            <li className="flex items-center">
-              <EggFried className="mr-1 text-amber-700" /> Petit-déjeuner
-            </li>
-            <li className="flex items-center">
-              <Hotel className="mr-1 text-amber-700" /> Reception 24h/24
-            </li>
+            {EquipementIcon.map((item: Equipement, index: number) => (
+              <li key={index} className="flex items-center space-x-2">
+                {item.icon}
+                <p>{item.text}</p>
+              </li>
+            ))}
           </ul>
         </section>
       </article>

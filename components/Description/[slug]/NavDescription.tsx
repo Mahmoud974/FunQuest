@@ -6,7 +6,7 @@ export default function NavDescription() {
     'Description',
     'Rooms',
     'Equipment',
-    'Rules',
+    'Ruleshouse',
     'Quotes',
   ];
   let styleMenu: string = 'pl-0 cursor-pointer text-md';
