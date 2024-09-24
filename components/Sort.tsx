@@ -1,7 +1,6 @@
 'use client';
 import * as React from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
-
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -39,9 +38,7 @@ export function ComboboxDemo() {
   const { data } = useTemplate(); // Les données de l'API ou des hôtels
   const { sortHotel, hotelSort } = useSortStore(); // Accède aux hôtels triés et à la fonction de tri
 
-  React.useEffect(() => {
-    // console.log(sortHotel);
-  }, [sortHotel]);
+  React.useEffect(() => {}, [sortHotel]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>

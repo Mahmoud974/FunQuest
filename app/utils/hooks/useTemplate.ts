@@ -11,6 +11,13 @@ const fetchElements = async (url: string) => {
   }
 };
 
+export const useImageUnsplash = () => {
+  return useQuery({
+    queryKey: ['get-images'],
+    queryFn: () => fetchElements('http://localhost:3000/api/unsplash'),
+  });
+};
+
 export const useTemplate = () => {
   return useQuery({
     queryKey: ['get-template'],

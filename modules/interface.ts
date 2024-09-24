@@ -67,6 +67,7 @@ export interface Activities {
   reviews: number;
   price: string;
   image: string;
+  countries: string;
 }
 
 export interface Flights {

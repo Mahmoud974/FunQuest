@@ -13,13 +13,20 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 
+// Fonction utilitaire pour obtenir la date actuelle et la date future
+const getInitialDates = () => {
+  const today = new Date();
+  const endDate = addDays(today, 30); // Par exemple, 30 jours à partir d'aujourd'hui
+  return { from: today, to: endDate };
+};
+
 export function DatePickerWithRange({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(2022, 0, 20), 20),
-  });
+  const [date, setDate] = React.useState<DateRange | undefined>(
+    getInitialDates()
+  );
+  const today = new Date();
 
   return (
     <div className={cn('grid gap-2', className)}>
@@ -27,7 +34,7 @@ export function DatePickerWithRange({
         <PopoverTrigger asChild>
           <Button
             id="date"
-            variant={'outline'}
+            variant="outline"
             className={cn(
               'md:w-[300px] md:justify-start text-left font-normal',
               !date && 'text-muted-foreground'
@@ -37,11 +44,11 @@ export function DatePickerWithRange({
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, 'LLL dd, y')} -{' '}
-                  {format(date.to, 'LLL dd, y')}
+                  {format(date.from, 'LLL dd, yyyy')} -{' '}
+                  {format(date.to, 'LLL dd, yyyy')}
                 </>
               ) : (
-                format(date.from, 'LLL dd, y')
+                format(date.from, 'LLL dd, yyyy')
               )
             ) : (
               <span>Pick a date</span>
@@ -56,6 +63,7 @@ export function DatePickerWithRange({
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
+            disabled={{ before: today }} // Désactiver les dates antérieures à aujourd'hui
           />
         </PopoverContent>
       </Popover>

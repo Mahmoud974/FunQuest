@@ -12,23 +12,28 @@ import { useSortStore } from '@/store/store';
 
 const Page = () => {
   const { data } = useTemplate();
+
   const [currentPage, setCurrentPage] = useState(1); // Current page state
   const itemsPerPage = 5; // Number of hotels to display per page
-  const { sortHotel, bool } = useSortStore(); // Accède aux hôtels triés et à la fonction de tri
+  const { sortHotel, bool } = useSortStore();
+  // Calculate the total number of hotels (from sorted data or the full list)
+  const lengthHotels =
+    Array.isArray(sortHotel) && sortHotel.length > 0
+      ? sortHotel.length
+      : Array.isArray(data)
+      ? data.length
+      : 0;
 
-  React.useEffect(() => {
-    console.log(bool);
-
-    console.log(sortHotel);
-  }, [sortHotel, bool]);
-  const lengthHotels = data ? data.length : 0;
   const totalPages = Math.ceil(lengthHotels / itemsPerPage);
 
-  const currentHotels =
-    (sortHotel && sortHotel.length > 0 ? sortHotel : data)?.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    ) || [];
+  // Get the current hotels for the current page
+  const currentHotels = (
+    Array.isArray(sortHotel) && sortHotel.length > 0
+      ? sortHotel
+      : Array.isArray(data)
+      ? data
+      : []
+  ).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -55,10 +60,12 @@ const Page = () => {
               <ComboboxDemo />
             </header>
 
-            {/* Display current page hotels */}
-            {currentHotels.map((hotel: Hotel) => (
-              <Product hotel={hotel} key={hotel.id} />
-            ))}
+            <div className="">
+              {/* Display current page hotels */}
+              {currentHotels.map((hotel: Hotel) => (
+                <Product hotel={hotel} key={hotel.id} />
+              ))}
+            </div>
 
             {/* Pagination controls */}
             <div className="flex justify-center mt-6">

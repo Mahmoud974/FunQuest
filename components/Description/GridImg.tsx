@@ -20,11 +20,22 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { useHotel } from '@/app/provider/HotelContext';
 import ReactCountryFlag from 'react-country-flag';
+import { useImageUnsplash } from '@/app/utils/hooks/useTemplate';
 
-export default function GridImg({}: any) {
+export default function GridImg() {
   const { findHotel } = useHotel();
-  console.log(findHotel);
-  console.log(findHotel?.countryAbbr);
+  const { data } = useImageUnsplash();
+
+  // Vérifie que data est défini et génère un tableau d'URL d'images
+  const imageUrls = data?.map((item: any) => item.urls.raw) || [];
+
+  // Fonction pour obtenir des images aléatoires
+  const getRandomImages = (num: number) => {
+    const shuffled = [...imageUrls].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, num);
+  };
+
+  const randomImages = getRandomImages(4);
 
   return (
     <>
@@ -33,7 +44,6 @@ export default function GridImg({}: any) {
         <div className="flex flex-col">
           <div className="flex items-center">
             <h1 className="text-3xl font-bold">{findHotel?.name}</h1>
-
             <ul className="flex items-center ml-2 text-yellow-300">
               <li className="text-xl">★</li>
               <li className="text-xl">★</li>
@@ -49,10 +59,7 @@ export default function GridImg({}: any) {
               <ReactCountryFlag
                 className="pb-1 ml-1"
                 countryCode={findHotel?.countryAbbr}
-                style={{
-                  fontSize: '1.4em',
-                  lineHeight: '1.4em',
-                }}
+                style={{ fontSize: '1.4em', lineHeight: '1.4em' }}
               />
             </p>
           </div>
@@ -106,56 +113,21 @@ export default function GridImg({}: any) {
       </div>
 
       {/* Section des images */}
-      <section className="bg-white dark:bg-gray-800 h-full py-6 sm:py-8">
-        <div className="mx-auto max-w-screen-lg">
+      <section className="bg-white dark:bg-gray-800 w-auto py-6 sm:py-8">
+        <div className="mx-auto max-w-screen-xl">
           <div className="grid grid-cols-2 gap-4">
-            {/* Image 1 */}
-            <div className="relative w-full h-60">
-              <Image
-                src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600"
-                alt="Bandos Maldives 1"
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg"
-              />
-            </div>
-
-            {/* Image 2 */}
-            <div className="relative w-full h-60">
-              <Image
-                src="https://images.unsplash.com/photo-1542759564-7ccbb6ac450a?auto=format&q=75&fit=crop&w=1000"
-                alt="Bandos Maldives 2"
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg"
-              />
-            </div>
-
-            {/* Image 3 */}
-            <div className="relative w-full h-60">
-              <Image
-                src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000"
-                alt="Bandos Maldives 3"
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg"
-              />
-            </div>
-
-            {/* Image 4 */}
-            <div className="relative w-full h-60">
-              <Image
-                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600"
-                alt="Bandos Maldives 4"
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg"
-              />
-            </div>
+            {randomImages.map((url: string, index: number) => (
+              <div key={index} className="relative w-full h-60">
+                <Image
+                  src={url}
+                  alt={`Hotel Image ${index + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

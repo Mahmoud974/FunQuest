@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { useTemplate } from '@/app/utils/hooks/useTemplate';
 import { Hotel } from '@/modules/interface';
+import { useFilterAccommodation } from '@/store/store';
 
 const SortHotel = () => {
   const { data } = useTemplate();
-  let priceHotel = data?.map((item: Hotel) => item.pricePerNight);
 
-  const typesHebergement = [
-    'Hôtel',
-    'Resort',
-    'Auberge de jeunesse',
-    'Appartement',
-    'Appart hôtel',
-    'Villa',
-    'Capsule',
-  ];
+  const { filteredHotels, setFilteredHotels } = useFilterAccommodation();
 
   const nombreEtoiles = ['★★★★★', '★★★★', '★★★', '★★', '★', 'Non classé'];
-
+  const ratings = [
+    { stars: 3, label: 'Très bien', count: 160 },
+    { stars: 4, label: 'Fantastique', count: 129 },
+    { stars: 5, label: 'Superbe', count: 62 },
+  ];
   const equipements = [
     { name: 'Piscine', count: 98 },
     { name: 'Internet', count: 155 },
@@ -40,8 +36,17 @@ const SortHotel = () => {
     { note: '7+ Très bien', count: 160 },
   ];
 
+  const getUniqueValues = (data: any[], key: string) => {
+    return data && data
+      ? Array.from(new Set(data && data?.map((item) => item[key])))
+      : [];
+  };
+
+  const uniqueTypeRooms = getUniqueValues(data, 'typeRoom');
+  const priceTab = getUniqueValues(data, 'pricePerNight');
+
   const [rating, setRating] = useState(3);
-  const [price, setPrice] = useState(750);
+  const [price, setPrice] = useState(0);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
@@ -54,6 +59,12 @@ const SortHotel = () => {
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(parseInt(event.target.value, 10));
+  };
+  const renderStars = (rating: number) => {
+    const stars = Array.from({ length: 5 }, (_, index) => {
+      return index < rating ? '★' : '☆'; // Remplir ou vide
+    });
+    return <span className="text-black">{stars}</span>; // Vous pouvez changer la couleur ici
   };
 
   return (
@@ -74,7 +85,8 @@ const SortHotel = () => {
               <div className="flex items-center">
                 <Slider
                   defaultValue={[price]}
-                  max={900}
+                  min={Math.min(...priceTab)}
+                  max={Math.max(...priceTab)}
                   step={1}
                   onChange={handlePriceChange}
                 />
@@ -92,8 +104,9 @@ const SortHotel = () => {
           </p>
           {isTypeOpen && (
             <ul className="grid grid-cols-2 gap-4 max-w-lg mt-3">
-              {typesHebergement.map((type) => (
+              {uniqueTypeRooms?.map((type: any) => (
                 <li
+                  onClick={() => setFilteredHotels(data, type)}
                   key={type}
                   className="flex text-md items-center justify-center p-2 border rounded-lg hover:bg-blue-700 hover:text-white hover:font-bold cursor-pointer"
                 >
@@ -114,7 +127,7 @@ const SortHotel = () => {
           {isRatingOpen && (
             <div className="w-full mx-auto">
               <div className="flex items-center justify-between mb-4">
-                <span className="text-sm">Étoiles: {rating}</span>
+                <span className="text-sm">Étoiles: {renderStars(rating)}</span>
               </div>
               <div className="flex items-center">
                 <Slider
@@ -122,7 +135,7 @@ const SortHotel = () => {
                   min={0}
                   max={5}
                   step={1}
-                  className="w-full custom-slider-width" // Appliquez une classe personnalisée
+                  className="w-full custom-slider-width"
                   onChange={handleRatingChange}
                 />
               </div>

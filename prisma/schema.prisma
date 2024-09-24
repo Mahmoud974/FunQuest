@@ -27,26 +27,29 @@ model Flight {
 }
 
 model Hotel {
-  id            Int      @id @default(autoincrement())
-  name          String
-  address       String
-  city          String
-  country       String
-  countryAbbr   String
-  mainMoney     String
-  money         String[]
-  wordlPlugs    String[]
-  stars         Int
-  reviews       Int
-  amenities     String[]
-  pricePerNight Float
-  descriptions  String
-  typeRoom      String
-  rate          Float
+  id           Int      @id @default(autoincrement())
+  name         String
+  address      String
+  city         String
+  country      String
+  countryAbbr  String
+  mainMoney    String
+  money        String[]
+  wordlPlugs   String[]
+  stars        Int
+  price        Float
+  descriptions String
+  typeRoom     String
+  rate         Float
+  equipment    String[] // Ajout de la colonne equipment
 }
 
 model Activity {
   id          Int    @id @default(autoincrement())
+  countries   String
+  countryAbbr String
+  cities      String
+  stars       Int
   title       String
   description String
   duration    String
