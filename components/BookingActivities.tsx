@@ -1,15 +1,19 @@
-'use client';
-import React, { useEffect, useState } from 'react'; // Import useState
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useTemplateActivities } from '@/app/utils/hooks/useTemplate';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export default function BookingActivities({ params }: any) {
+export default function BookingActivities({
+  params,
+  setTotalPrice,
+  setTotalPersonn,
+  setIsDisabled,
+}: any) {
   const { data } = useTemplateActivities();
   const { slug } = params;
-  const [storedValue, setStoredValue] = useState<any>('');
+  const [storedValue, setStoredValue] = useState<any>(''); // État pour stocker les valeurs sauvegardées
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -20,12 +24,12 @@ export default function BookingActivities({ params }: any) {
 
   const handleSave = () => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('myData', JSON.stringify(storedValue));
+      localStorage.setItem('myData', JSON.stringify(storedValue)); // Sauvegarde des données dans localStorage
     }
   };
 
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalPersonn, setTotalPersonn] = useState(1);
+  // Fonction pour récupérer la date actuelle en format AAAA-MM-JJ
+  const today = new Date().toISOString().split('T')[0];
 
   const FormSchema = z.object({
     numPeople: z.preprocess(
@@ -33,12 +37,15 @@ export default function BookingActivities({ params }: any) {
       z.number().min(1, 'Veuillez renseigner un nombre de personnes.').max(12)
     ),
     language: z.string().nonempty('Veuillez sélectionner une langue.'),
-    availableDate: z.string(),
-    availableTime: z.string().nonempty('Veuillez sélectionner une heure.'), // Nouveau champ ajouté pour l'heure
+    availableDate: z.string().refine((date) => date >= today, {
+      message: 'La date ne peut pas être dans le passé.',
+    }), // Validation pour s'assurer que la date n'est pas passée
+    availableTime: z.string().nonempty('Veuillez sélectionner une heure.'),
   });
 
   type FormSchemaType = z.infer<typeof FormSchema>;
 
+  // Définition des valeurs par défaut ici
   const {
     register,
     handleSubmit,
@@ -46,10 +53,10 @@ export default function BookingActivities({ params }: any) {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      numPeople: 1,
-      language: '',
-      availableDate: '',
-      availableTime: '', // Champ pour l'heure
+      numPeople: 2, // Valeur par défaut pour le nombre de personnes
+      language: 'français', // Valeur par défaut pour la langue
+      availableDate: today, // Par défaut, la date actuelle est sélectionnée
+      availableTime: '12:00', // Heure par défaut
     },
   });
 
@@ -58,14 +65,14 @@ export default function BookingActivities({ params }: any) {
     return <div>Aucune activité trouvée.</div>;
   }
 
-  const { id, title, image, description, duration, price } = filterActivities;
+  const { price } = filterActivities;
 
   const onSubmit = (formData: FormSchemaType) => {
-    const calculatedTotal = formData.numPeople * price; // Calculer le total en fonction du nombre de personnes
-    setTotalPrice(calculatedTotal);
+    const calculatedTotal = formData.numPeople * price;
     setTotalPersonn(formData.numPeople);
+    setTotalPrice(calculatedTotal);
     handleSave();
-
+    setIsDisabled(false);
     console.log({ ...formData, total: calculatedTotal });
 
     setStoredValue({
@@ -73,6 +80,7 @@ export default function BookingActivities({ params }: any) {
       total: calculatedTotal,
     });
   };
+
   return (
     <section className="mt-12 md:mb-12 bg-slate-50 p-10 ">
       <h3 className="font-bold text-2xl my-3 text-center">
@@ -124,16 +132,14 @@ export default function BookingActivities({ params }: any) {
             type="date"
             id="availableDate"
             {...register('availableDate', { required: true })}
+            min={today} // Ajout de l'attribut min pour désactiver les dates passées
             className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 transition duration-200"
           />
           {errors.availableDate && (
-            <span className="text-red-500">
-              Veuillez sélectionner une date.
-            </span>
+            <span className="text-red-500">{errors.availableDate.message}</span>
           )}
         </div>
 
-        {/* Nouveau champ pour sélectionner l'heure */}
         <div>
           <label className="block mb-2 text-gray-700" htmlFor="availableTime">
             Heure disponible :

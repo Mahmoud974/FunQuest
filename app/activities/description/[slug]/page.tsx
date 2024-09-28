@@ -11,11 +11,13 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import BookingActivities from '@/components/BookingActivities';
+import BreadcrumbHotel from '@/components/Description/Breadcrumb';
 
 const Page = ({ params }: { params: { slug: string } }) => {
   const { data } = useTemplateActivities();
   const { slug } = params;
   const [storedValue, setStoredValue] = useState<any>('');
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -23,12 +25,6 @@ const Page = ({ params }: { params: { slug: string } }) => {
       setStoredValue(value || '');
     }
   }, []);
-
-  const handleSave = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('myData', JSON.stringify(storedValue));
-    }
-  };
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalPersonn, setTotalPersonn] = useState(1);
@@ -69,8 +65,11 @@ const Page = ({ params }: { params: { slug: string } }) => {
   return (
     <>
       <Navbar />
+      <div className="mx-auto container">
+        <BreadcrumbHotel />
+      </div>
       <main className="mx-auto container">
-        <section className="rounded-xl mt-12 relative font-sans before:absolute before:w-full before:h-full before:inset-0 before:z-10">
+        <section className="rounded-xl mt-8 relative font-sans before:absolute before:w-full before:h-full before:inset-0 before:z-10">
           <Image
             src={image}
             className="absolute inset-0 w-full h-full object-cover"
@@ -83,7 +82,12 @@ const Page = ({ params }: { params: { slug: string } }) => {
 
         <section className="flex items-start md:flex-row flex-col">
           {/* Reserver l'élement  */}
-          <BookingActivities params={params} />
+          <BookingActivities
+            params={params}
+            setTotalPrice={setTotalPrice}
+            setTotalPersonn={setTotalPersonn}
+            setIsDisabled={setIsDisabled}
+          />
           <section className="md:container mx-auto flex mt-10">
             <section>
               <h1 className="font-bold text-2xl my-3">{title}</h1>
@@ -124,9 +128,9 @@ const Page = ({ params }: { params: { slug: string } }) => {
                       : 1 + ' personne'}{' '}
                   </p>
                 </div>
-                <Link href={`/information/${id}`}>
-                  <Button className="bg-purple-600 px-12">Réserver</Button>
-                </Link>
+                <Button className="bg-purple-600 px-12" disabled={isDisabled}>
+                  <Link href={`/information/${id}`}>Réserver</Link>
+                </Button>
               </div>
 
               <div className="flex items-center space-x-4 mt-2">

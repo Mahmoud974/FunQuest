@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { DatePickerWithRange } from './DateSearch';
 import {
@@ -19,15 +19,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 // Définir le schéma de validation avec Zod
 const inputsSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  adults: z.number().min(1, 'At least one adult is required'),
-  rooms: z.number().min(1, 'At least one room is required'),
+  title: z.string().min(1, 'Le titre est requis'),
+  adults: z.number().min(1, 'Au moins un adulte est requis'),
+  rooms: z.number().min(1, 'Au moins une chambre est requise'),
 });
 
 type Inputs = z.infer<typeof inputsSchema>;
 
 const GetstartSearch = () => {
-  const { db, filteredData, setDb, filterData } = filterTheSearchStore();
+  const { setDb, filterData, filteredData } = filterTheSearchStore();
   const { data } = useTemplateActivities();
 
   const {
@@ -42,19 +42,20 @@ const GetstartSearch = () => {
     },
   });
 
-  // Ajouter un état pour les personnes et les chambres
   const [adults, setAdults] = useState(1);
   const [rooms, setRooms] = useState(1);
 
   // Charger les données dans le store lorsque le composant est monté
-  React.useEffect(() => {
+  useEffect(() => {
     if (data) {
       setDb(data);
     }
   }, [data, setDb]);
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    filterData({ ...formData, adults, rooms }); // Appliquer le filtrage en utilisant le store
+    // Appliquer le filtrage en utilisant le store
+    filterData(formData.title);
+    console.log('Données filtrées avec succès :', formData);
   };
 
   return (
@@ -67,7 +68,7 @@ const GetstartSearch = () => {
           <input
             type="search"
             className="border border-black rounded-sm py-2 px-4 w-full md:w-auto"
-            placeholder="Search your..."
+            placeholder="Rechercher vos activités..."
             {...register('title')}
           />
           {errors.title && (

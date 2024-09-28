@@ -1,5 +1,6 @@
 'use client';
 import { useTemplateActivities } from '@/app/utils/hooks/useTemplate';
+import BreadcrumbHotel from '@/components/Description/Breadcrumb';
 import AmountHotel from '@/components/Informations/AmountHotel';
 import Arrived from '@/components/Informations/Arrived';
 import DetailsHotel from '@/components/Informations/DetailsHotel';
@@ -26,6 +27,9 @@ export default function Page({ params }: any) {
   return (
     <>
       <Navbar />
+      <div className="mx-auto container">
+        <BreadcrumbHotel />
+      </div>
       <section className="mx-auto container ">
         <section className="flex flex-grow gap-2 mt-12">
           <section className="flex-col flex gap-5 ">

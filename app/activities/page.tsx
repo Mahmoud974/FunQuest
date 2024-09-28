@@ -8,6 +8,8 @@ import CardActivity from '@/components/CardActivity';
 import { Activities } from '@/modules/interface';
 import { ComboboxDemo } from '@/components/Sort';
 import { filterTheSearchStore, useSortStore } from '@/store/store';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import BreadcrumbHotel from '@/components/Description/Breadcrumb';
 
 const Page = () => {
   const { data } = useTemplateActivities();
@@ -17,7 +19,6 @@ const Page = () => {
   const itemsPerPage = 6;
   const { newTableDropdown, sortDropdown } = useSortStore();
   const [booleanData, setBooleanData] = useState<boolean>(true);
-  console.log(newTableDropdown);
 
   // Effectue les mises à jour nécessaires lorsque `data` ou `filteredData` changent
   useEffect(() => {
@@ -50,6 +51,7 @@ const Page = () => {
       <main className="mx-auto container">
         <GetstartSearch />
 
+        <BreadcrumbHotel />
         <section className="flex items-start md:flex-row flex-col">
           <SortHotel />
 
