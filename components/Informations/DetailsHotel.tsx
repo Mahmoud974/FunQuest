@@ -1,9 +1,10 @@
+import { Clock } from 'lucide-react';
 import React from 'react';
 
-export default function DetailsHotel() {
+export default function DetailsHotel({ getItemData }: any) {
   return (
     <aside className="flex-4 border rounded-md h-auto p-4">
-      <div className="flex flex-col  ">
+      <div className="flex flex-col">
         <div className="flex items-center">
           <h2 className="text-xl font-bold my-1">
             Les détails de votre réservation
@@ -13,30 +14,31 @@ export default function DetailsHotel() {
         <div>
           <ul>
             <li className="text-xl">
-              <ul>
-                <li className="font-bold">Arrivée</li>
-                <li>ven. 6 sept. 2024</li>
-                <li className="text-lg">À partir de 0h00</li>
-              </ul>
-            </li>
-            <li className="text-xl">
-              <ul>
-                <li className="font-bold">Départ</li>
-                <li>sam. 7 sept. 2024</li>
-                <li className="text-lg">6h30 - 11h00</li>
-              </ul>
+              <div>
+                <span className="font-bold">Départ</span>
+                <ul>
+                  <li className="font-bold text-3xl">
+                    {getItemData.availableDate}
+                  </li>
+                  <li className="text-lg flex items-center">
+                    <Clock className="mr-2 " /> {getItemData.availableTime}
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
-        <p className="w-80">Durée totale du séjour : 1 nuit</p>
 
-        <h3 className="text-xl">Vous aviez selectionnez</h3>
+        <h3 className="text-xl">Vous aviez sélectionnez</h3>
         <ul>
-          <li className="text-green-500">1 chambre pour 2 adultes</li>
-          <li>1 x Chambre Familiale Deluxe</li>
-          <li>
-            <li className="text-blue-400 font-bold">Modifier la réservation</li>
+          <li className="text-green-500">
+            1 activité pour {getItemData.numPeople} adultes
           </li>
+          <li>1 x Chambre Familiale Deluxe</li>
+          <li className="text-blue-400 font-bold">
+            Modifier la réservation
+          </li>{' '}
+          {/* Suppression de l'élément <li> imbriqué ici */}
         </ul>
       </div>
     </aside>

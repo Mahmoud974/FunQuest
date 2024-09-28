@@ -90,18 +90,20 @@ export default function GridImg() {
         {/* Prix et actions */}
         <div>
           <ul className="flex justify-end">
-            <li className="text-2xl font-bold">{findHotel?.pricePerNight}€</li>
+            <li className="text-2xl font-bold">{findHotel?.price}€</li>
           </ul>
           <ul className="flex items-center justify-end space-x-4">
             <li>
-              <Heart className="text-purple-600" />
+              <Heart className="text-purple-600 cursor-pointer" />
             </li>
             <li>
-              <Share className="text-purple-600" />
+              <Share className="text-purple-600 cursor-pointer" />
             </li>
             <li>
               <Link href="/information">
-                <Button className="my-2 bg-purple-600">Reserver</Button>
+                <Button className="my-2 bg-purple-600 cursor-pointer">
+                  Reserver
+                </Button>
               </Link>
             </li>
           </ul>

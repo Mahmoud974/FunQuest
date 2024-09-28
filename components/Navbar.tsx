@@ -18,11 +18,9 @@ const Navbar = () => {
         />
 
         <nav className="absolute top-0 left-0 w-full flex justify-between p-4">
-          <h1 className="text-2xl text-white">
-            <Link href="/">
-              <h1 className="font-bold">Hots.dot</h1>
-            </Link>
-          </h1>
+          <Link href="/">
+            <p className="font-bold text-2xl text-white">Hots.dot</p>
+          </Link>
 
           <NavMenu />
         </nav>

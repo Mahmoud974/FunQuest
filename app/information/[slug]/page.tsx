@@ -7,19 +7,21 @@ import Dispo from '@/components/Informations/Disponibility';
 import Form from '@/components/Informations/Form';
 import Know from '@/components/Informations/Know';
 import NameHotel from '@/components/Informations/NameHotel';
+import PayElemnt from '@/components/Informations/PayElemnt';
 import Profil from '@/components/Informations/Profil';
 import RecapRoom from '@/components/Informations/RecapitulatifRoom';
 import SpecialAsk from '@/components/Informations/SpecialAsk';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Ticket } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Page({ params }: any) {
+  let getItemData = JSON.parse(localStorage.getItem('myData') || '');
+
   const { data } = useTemplateActivities();
   const { slug } = params;
   let activitiesData = data?.find((item: any) => item.id === Number(slug));
-  console.log(activitiesData);
 
   return (
     <>
@@ -28,17 +30,18 @@ export default function Page({ params }: any) {
         <section className="flex flex-grow gap-2 mt-12">
           <section className="flex-col flex gap-5 ">
             <NameHotel activitiesData={activitiesData} />
-            <DetailsHotel />
-            <AmountHotel />
+            <DetailsHotel getItemData={getItemData} />
+            <AmountHotel getItemData={getItemData.total} />
             <Dispo />
           </section>
           <section className="flex gap-3 flex-col flex-grow">
             <Profil />
             <Form />
             <Know />
-            <RecapRoom />
+            {/* <RecapRoom /> */}
             <SpecialAsk />
-            <Arrived />
+            <PayElemnt />
+            {/* <Arrived /> */}
           </section>
         </section>
         <div className="flex items-center justify-end space-x-4">

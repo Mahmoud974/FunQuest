@@ -7,8 +7,7 @@ import { useTemplateActivities } from '../utils/hooks/useTemplate';
 import CardActivity from '@/components/CardActivity';
 import { Activities } from '@/modules/interface';
 import { ComboboxDemo } from '@/components/Sort';
-import { filterTheSearchStore } from '@/store/store';
-import Link from 'next/link';
+import { filterTheSearchStore, useSortStore } from '@/store/store';
 
 const Page = () => {
   const { data } = useTemplateActivities();
@@ -16,6 +15,9 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedData, setDisplayedData] = useState<any>(data || []);
   const itemsPerPage = 6;
+  const { newTableDropdown, sortDropdown } = useSortStore();
+  const [booleanData, setBooleanData] = useState<boolean>(true);
+  console.log(newTableDropdown);
 
   // Effectue les mises à jour nécessaires lorsque `data` ou `filteredData` changent
   useEffect(() => {
@@ -26,11 +28,10 @@ const Page = () => {
     }
   }, [filteredData, data]);
 
-  // Calcul du nombre total de pages
   const totalPages = Math.ceil((displayedData.length || 0) / itemsPerPage);
 
   // Récupérer les activités pour la page actuelle
-  const currentActivities = displayedData.slice(
+  const currentActivities = newTableDropdown?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -39,6 +40,9 @@ const Page = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+  useEffect(() => {
+    sortDropdown('reset', data); // Réinitialiser le tri lorsque les données changent
+  }, [data, sortDropdown]);
 
   return (
     <>
@@ -57,18 +61,22 @@ const Page = () => {
                   : displayedData.length + ' Activité'}{' '}
               </h1>
 
-              <ComboboxDemo />
+              <ComboboxDemo booleanData={booleanData} />
             </header>
 
             {/* Affichage des activités avec pagination */}
             <div className="grid md:grid-cols-3 justify-items-center">
-              {currentActivities.map((activity: Activities) => (
-                <CardActivity data={activity} key={activity.id} />
-              ))}
+              {currentActivities && currentActivities.length > 0 ? (
+                currentActivities.map((activity: Activities) => (
+                  <CardActivity data={activity} key={activity.id} />
+                ))
+              ) : (
+                <p>Aucune activité disponible pour cette page.</p>
+              )}
             </div>
 
             {/* Contrôles de pagination */}
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center my-6">
               <button
                 className="px-4 py-2 bg-blue-500 text-white rounded mr-2"
                 disabled={currentPage === 1}

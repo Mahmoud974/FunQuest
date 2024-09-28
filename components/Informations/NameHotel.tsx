@@ -3,6 +3,10 @@ import React from 'react';
 import { PiKnife } from 'react-icons/pi';
 
 export default function NameHotel({ activitiesData }: any) {
+  if (!activitiesData) {
+    return <div>Loading...</div>;
+  }
+
   const {
     cities,
     title,
@@ -13,7 +17,6 @@ export default function NameHotel({ activitiesData }: any) {
     price,
     rating,
   } = activitiesData;
-  console.log(activitiesData);
 
   return (
     <aside className="flex-4 border rounded-md h-auto p-4">

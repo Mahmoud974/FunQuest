@@ -15,7 +15,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { useTemplate } from '@/app/utils/hooks/useTemplate';
+import {
+  useTemplate,
+  useTemplateActivities,
+} from '@/app/utils/hooks/useTemplate';
 import { useSortStore } from '@/store/store';
 
 const frameworks = [
@@ -28,17 +31,27 @@ const frameworks = [
     label: 'le + cher',
   },
   {
-    value: 'remettre',
-    label: 'remettre',
+    value: 'reset',
+    label: 'reset',
   },
 ];
-export function ComboboxDemo() {
+
+export function ComboboxDemo({ booleanData }: any) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
-  const { data } = useTemplate(); // Les données de l'API ou des hôtels
-  const { sortHotel, hotelSort } = useSortStore(); // Accède aux hôtels triés et à la fonction de tri
 
-  React.useEffect(() => {}, [sortHotel]);
+  // Renommer les variables pour clarifier leur utilisation
+  const { data: hotelsData, isLoading: hotelsLoading } = useTemplate(); // Données des hôtels
+  const { data: activitiesData, isLoading: activitiesLoading } =
+    useTemplateActivities(); // Données des activités
+
+  const { sortDropdown } = useSortStore();
+
+  // Vérifie si les données sont encore en cours de chargement
+  if (hotelsLoading || activitiesLoading) {
+    return <p>Chargement des données...</p>;
+  }
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -69,7 +82,18 @@ export function ComboboxDemo() {
                     setValue(selectedValue);
 
                     // Appelle la fonction de tri avec les données et le type de tri sélectionné
-                    hotelSort(selectedValue, data);
+                    if (selectedValue !== 'reset') {
+                      sortDropdown(
+                        selectedValue,
+                        booleanData ? activitiesData : hotelsData
+                      );
+                    } else {
+                      // Réinitialiser l'état si on choisit 'reset'
+                      sortDropdown(
+                        'reset',
+                        booleanData ? activitiesData : hotelsData
+                      );
+                    }
 
                     setOpen(false);
                   }}

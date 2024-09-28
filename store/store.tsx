@@ -49,44 +49,38 @@ export const filterTheSearchStore = create<FilterStoreState>((set) => ({
 
 export const useSortStore = create<any>()((set, get) => ({
   bool: false,
-  sortType: '', // Type de tri
-  sortHotel: [], // Liste des hôtels triés (initialisé à un tableau vide)
-
-  hotelSort: (sortType: string, data: any) => {
-    const { sortType: currentSortType } = get(); // Récupère le type de tri actuel
+  sortType: '',
+  newTableDropdown: [],
+  sortDropdown: (sortType: string, data: any) => {
+    const { sortType: currentSortType } = get();
     set((state: any) => {
-      // Si on clique à nouveau sur le même tri, ne pas retrier
       if (currentSortType === sortType) {
-        return { sortHotel: state.sortHotel }; // Ne change rien si le tri est déjà fait
+        return { newTableDropdown: state.newTableDropdown };
       }
-      // Cas de tri par prix croissant (moins cher)
+
       if (sortType === 'less') {
         console.log('Tri par prix croissant (moins cher)');
         return {
-          sortHotel: data
+          newTableDropdown: data
             ?.slice()
-            .sort((a: any, b: any) => a.pricePerNight - b.pricePerNight),
+            .sort((a: any, b: any) => a.price - b.price),
           sortType,
           bool: true,
         };
-      }
-      // Cas de tri par prix décroissant (plus cher)
-      else if (sortType === 'more') {
+      } else if (sortType === 'more') {
         console.log('Tri par prix décroissant (plus cher)');
         return {
-          sortHotel: data
+          newTableDropdown: data
             ?.slice()
-            .sort((a: any, b: any) => b.pricePerNight - a.pricePerNight),
+            .sort((a: any, b: any) => b.price - a.price),
           sortType,
           bool: true,
         };
-      }
-      // Cas de réinitialisation du tri
-      else if (sortType === 'remettre') {
-        console.log("Remettre à l'état initial");
+      } else if (sortType === 'reset') {
+        console.log('Reset');
         return {
-          sortHotel: data, // Restaure les données initiales
-          sortType: '', // Réinitialise le type de tri
+          newTableDropdown: data,
+          sortType: '',
           bool: false,
         };
       }

@@ -1,25 +1,22 @@
 import React from 'react';
 
-export default function AmountHotel() {
+export default function AmountHotel({ getItemData }: any) {
   return (
     <aside className="flex-4 border rounded-md h-auto p-4">
-      <div className="flex flex-col  ">
-        <div className="flex items-center ">
+      <div className="flex flex-col">
+        <div className="flex items-center">
           <h2 className="text-xl font-bold my-1">Récapitulati du montant</h2>
         </div>
         <div>
-          <div className="flex ">
-            <ul className="flex flex-col ">
+          <div className="flex">
+            <ul className="flex flex-col">
               <li className="text-4xl font-bold w-24">Montant total</li>
-              <ul>
-                <li>
-                  <li className="text-4xl font-bold w-24">30€</li>
-                  <li className="w-3/6">
-                    {` Taxes et frais compris Dans la devise de l'établissement: PKR 9
+              <li className="text-4xl font-bold w-24">{getItemData}€</li>{' '}
+              {/* Correction ici */}
+              <li className="w-3/6">
+                {` Taxes et frais compris Dans la devise de l'établissement: PKR 9
                 500`}
-                  </li>
-                </li>
-              </ul>
+              </li>
             </ul>
           </div>
         </div>
@@ -42,13 +39,14 @@ export default function AmountHotel() {
         </div>
         <p className="w-80">Durée totale du séjour : 1 nuit</p>
 
-        <h3 className="text-xl">Vous aviez selectionnez</h3>
+        <h3 className="text-xl">Vous aviez sélectionnez</h3>
         <ul>
           <li className="text-green-500">1 chambre pour 2 adultes</li>
           <li>1 x Chambre Familiale Deluxe</li>
-          <li>
-            <li className="text-blue-400 font-bold">Modifier la réservation</li>
-          </li>
+          <li className="text-blue-400 font-bold">
+            Modifier la réservation
+          </li>{' '}
+          {/* Suppression de l'élément <li> imbriqué ici */}
         </ul>
       </div>
     </aside>
