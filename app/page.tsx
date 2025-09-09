@@ -38,7 +38,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    sortDropdown('reset', data); // Réinitialiser le tri lorsque les données changent
+    sortDropdown('reset', data);
   }, [data, sortDropdown]);
 
   return (

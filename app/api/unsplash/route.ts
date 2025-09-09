@@ -1,9 +1,7 @@
-// http://localhost:3000/api/unsplash
-import { NextResponse } from 'next/server';
-import { NextApiRequest } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest) {
-  const { searchParams } = new URL(req.url as string);
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
   const query = searchParams.get('query') || 'hotel room';
   const perPage = 30;
   const totalImages = 100;
@@ -28,6 +26,7 @@ export async function GET(req: NextApiRequest) {
 
     return NextResponse.json(images, { status: 200 });
   } catch (error) {
+    console.error(error); // Optionnel : pour afficher l'erreur dans la console
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

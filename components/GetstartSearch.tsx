@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button } from './ui/button';
 import { DatePickerWithRange } from './DateSearch';
 import {
@@ -27,23 +27,23 @@ const inputsSchema = z.object({
 type Inputs = z.infer<typeof inputsSchema>;
 
 const GetstartSearch = () => {
-  const { setDb, filterData, filteredData } = filterTheSearchStore();
+  const { setDb, filterData } = filterTheSearchStore();
   const { data } = useTemplateActivities();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch, // Destructure watch
+    getValues, // Destructure getValues
   } = useForm<Inputs>({
-    resolver: zodResolver(inputsSchema), // Utiliser zodResolver pour la validation avec Zod
+    resolver: zodResolver(inputsSchema),
     defaultValues: {
       adults: 1,
       rooms: 1,
     },
   });
-
-  const [adults, setAdults] = useState(1);
-  const [rooms, setRooms] = useState(1);
 
   // Charger les données dans le store lorsque le composant est monté
   useEffect(() => {
@@ -56,6 +56,23 @@ const GetstartSearch = () => {
     // Appliquer le filtrage en utilisant le store
     filterData(formData.title);
     console.log('Données filtrées avec succès :', formData);
+  };
+
+  // Update the values of adults and rooms in form state when they change
+  const handleAdultChange = (increment: boolean) => {
+    const currentAdults = getValues('adults') || 1;
+    setValue(
+      'adults',
+      increment ? currentAdults + 1 : Math.max(currentAdults - 1, 1)
+    );
+  };
+
+  const handleRoomChange = (increment: boolean) => {
+    const currentRooms = getValues('rooms') || 1;
+    setValue(
+      'rooms',
+      increment ? currentRooms + 1 : Math.max(currentRooms - 1, 1)
+    );
   };
 
   return (
@@ -83,30 +100,28 @@ const GetstartSearch = () => {
                 <UsersRound />
                 <div className="mx-2">
                   <p>
-                    {adults} adulte{adults > 1 ? 's' : ''}
+                    {watch('adults') || 1} adulte
+                    {(watch('adults') || 1) > 1 ? 's' : ''}
                   </p>
                   <p>
-                    {rooms} chambre{rooms > 1 ? 's' : ''}
+                    {watch('rooms') || 1} chambre
+                    {(watch('rooms') || 1) > 1 ? 's' : ''}
                   </p>
                 </div>
                 <ChevronDown />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem onClick={() => setAdults(adults + 1)}>
+                <MenubarItem onClick={() => handleAdultChange(true)}>
                   Ajouter un adulte
                 </MenubarItem>
-                <MenubarItem
-                  onClick={() => setAdults(adults > 1 ? adults - 1 : 1)}
-                >
+                <MenubarItem onClick={() => handleAdultChange(false)}>
                   Retirer un adulte
                 </MenubarItem>
                 <MenubarSeparator />
-                <MenubarItem onClick={() => setRooms(rooms + 1)}>
+                <MenubarItem onClick={() => handleRoomChange(true)}>
                   Ajouter une chambre
                 </MenubarItem>
-                <MenubarItem
-                  onClick={() => setRooms(rooms > 1 ? rooms - 1 : 1)}
-                >
+                <MenubarItem onClick={() => handleRoomChange(false)}>
                   Retirer une chambre
                 </MenubarItem>
               </MenubarContent>

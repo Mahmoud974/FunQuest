@@ -20,11 +20,8 @@ const Product = ({ hotel }: Props) => {
   };
 
   const nombreEtoiles = ['★★★★★', '★★★★', '★★★', '★★', '★'];
-
-  // État pour le cœur favori
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // Gestionnaire d'événements pour le clic sur le cœur
   const handleFavoriteToggle = () => {
     setIsFavorite((prev) => !prev);
   };

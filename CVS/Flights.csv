@@ -1,0 +1,41 @@
+id,airline,departureCity,arrivalCity,departureDate,departureTime,arrivalTime,duration,price,availableSeats
+1,Air France,Paris,New York,2024-09-01,10:30,13:30,8h,450,12
+2,Delta Airlines,New York,Los Angeles,2024-09-02,14:00,17:00,5h,300,20
+3,Lufthansa,Berlin,Tokyo,2024-09-03,06:00,22:00,14h,950,8
+4,British Airways,London,Dubai,2024-09-04,09:00,17:00,7h,600,25
+5,Qantas,Sydney,Singapore,2024-09-05,13:30,18:00,7h 30m,700,15
+6,Emirates,Dubai,Cape Town,2024-09-06,22:00,06:00,8h,800,18
+7,Singapore Airlines,Singapore,San Francisco,2024-09-07,12:00,16:00,16h,1200,10
+8,Cathay Pacific,Hong Kong,Sydney,2024-09-08,23:00,10:00,9h,650,14
+9,American Airlines,Miami,Mexico City,2024-09-09,08:00,10:30,2h 30m,250,22
+10,Turkish Airlines,Istanbul,Moscow,2024-09-10,07:00,09:00,2h,400,30
+11,Qatar Airways,Doha,Bangkok,2024-09-11,01:00,07:00,6h,550,20
+12,Virgin Atlantic,London,Johannesburg,2024-09-12,20:00,06:00,10h,850,17
+13,Aeroflot,Moscow,Beijing,2024-09-13,10:00,20:00,8h,700,12
+14,KLM,Amsterdam,Nairobi,2024-09-14,08:30,18:00,8h 30m,650,15
+15,Iberia,Madrid,Buenos Aires,2024-09-15,22:00,09:00,13h,950,8
+16,Southwest Airlines,Los Angeles,Las Vegas,2024-09-16,10:00,11:00,1h,150,25
+17,Air Canada,Toronto,Vancouver,2024-09-17,12:00,14:00,2h,200,18
+18,Avianca,Bogota,Lima,2024-09-18,07:00,09:00,2h,300,22
+19,Etihad Airways,Abu Dhabi,Sydney,2024-09-19,22:00,06:00,14h,1100,10
+20,Thai Airways,Bangkok,Tokyo,2024-09-20,08:00,16:00,8h,750,16
+21,Alitalia,Rome,Athens,2024-09-21,09:00,11:00,2h,180,28
+22,Ethiopian Airlines,Addis Ababa,Johannesburg,2024-09-22,15:00,19:00,4h,350,20
+23,Garuda Indonesia,Jakarta,Bali,2024-09-23,06:00,08:00,2h,220,24
+24,Malaysia Airlines,Kuala Lumpur,Melbourne,2024-09-24,12:00,21:00,9h,700,12
+25,ANA,Tokyo,Los Angeles,2024-09-25,16:00,09:00,11h,900,14
+26,Air India,Delhi,London,2024-09-26,10:00,14:00,9h,850,10
+27,Swiss International Air Lines,Zurich,Paris,2024-09-27,11:00,12:00,1h,200,25
+28,Scandinavian Airlines,Copenhagen,Oslo,2024-09-28,07:30,08:30,1h,150,30
+29,Aeromexico,Mexico City,Cancun,2024-09-29,13:00,15:00,2h,180,22
+30,Copa Airlines,Panama City,Bogota,2024-09-30,16:00,18:00,2h,220,18
+31,EgyptAir,Cairo,Dubai,2024-10-01,12:00,18:00,4h,500,20
+32,Vueling Airlines,Barcelona,Rome,2024-10-02,09:00,11:00,2h,180,28
+33,SAS,Stockholm,Helsinki,2024-10-03,14:00,16:00,2h,200,25
+34,LATAM Airlines,Santiago,Lima,2024-10-04,08:00,11:00,3h,350,18
+35,GOL Airlines,Rio de Janeiro,Sao Paulo,2024-10-05,07:00,08:00,1h,120,20
+36,Asiana Airlines,Seoul,Hong Kong,2024-10-06,23:00,03:00,4h,600,15
+37,TAP Portugal,Lisbon,Newark,2024-10-07,15:00,20:00,8h,700,10
+38,Emirates,Dubai,Paris,2024-10-08,02:00,08:00,6h,800,20
+39,Vietnam Airlines,Hanoi,Ho Chi Minh City,2024-10-09,10:00,12:00,2h,250,22
+40,Air New Zealand,Auckland,Sydney,2024-10-10,07:00,09:00,3h,500,12
